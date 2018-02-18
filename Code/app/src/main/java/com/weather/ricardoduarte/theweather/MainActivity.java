@@ -3,7 +3,9 @@ package com.weather.ricardoduarte.theweather;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView city;
     ListView city_list;
+    Button add_city;
     String base_url =  "http://api.apixu.com/v1/";
     String api_key = "07e921a3441f4e148e201522181702";
     List<City> cities;
@@ -35,8 +38,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        add_city = findViewById(R.id.button_add_city);
+        add_city.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                
+            }
+        });
+
+
         create_listview();
     }
+
 
 
     private void build_retrofit(){
