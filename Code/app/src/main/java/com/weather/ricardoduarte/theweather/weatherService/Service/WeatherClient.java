@@ -1,9 +1,11 @@
 package com.weather.ricardoduarte.theweather.weatherService.Service;
 
-import com.weather.ricardoduarte.theweather.weatherService.Model.City;
+import com.weather.ricardoduarte.theweather.weatherService.Models.CityResponse;
+
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -14,5 +16,5 @@ import retrofit2.http.Query;
 
 public interface WeatherClient {
     @GET("current.json?")
-    Call<City> cityInfo(@Query("key") String key, @Query("q") String city);
+    Call<CityResponse> cityInfo(@Query("key") String key, @Query("q") String city);
 }

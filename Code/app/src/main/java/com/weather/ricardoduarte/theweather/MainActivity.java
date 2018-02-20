@@ -3,16 +3,12 @@ package com.weather.ricardoduarte.theweather;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.weather.ricardoduarte.theweather.weatherService.Model.City;
+import com.weather.ricardoduarte.theweather.weatherService.Models.CityResponse;
 import com.weather.ricardoduarte.theweather.weatherService.Service.WeatherClient;
 
 import java.util.ArrayList;
@@ -32,22 +28,14 @@ public class MainActivity extends AppCompatActivity {
     Button add_city;
     String base_url =  "http://api.apixu.com/v1/";
     String api_key = "07e921a3441f4e148e201522181702";
-    List<City> cities;
+    List<CityResponse> cities;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        add_city = findViewById(R.id.button_add_city);
-        add_city.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                
-            }
-        });
+        build_retrofit();
 
-
-        create_listview();
     }
 
 
@@ -59,18 +47,16 @@ public class MainActivity extends AppCompatActivity {
         Retrofit retrofit = builder.build();
         WeatherClient weatherClient = retrofit.create(WeatherClient.class);
 
-        Call<City> call = weatherClient.cityInfo(api_key, "Paris");
+        Call<CityResponse> call = weatherClient.cityInfo(api_key, "Paris");
 
-        call.enqueue(new Callback<City>() {
+        call.enqueue(new Callback<CityResponse> () {
             @Override
-            public void onResponse(Call<City> call, Response<City> response) {
-                Log.i("Test", new Gson().toJson(response));
+            public void onResponse(Call<CityResponse>  call, Response<CityResponse>  response) {
+                Log.i("TESTE", "dDEU");
             }
-
             @Override
-            public void onFailure(Call<City> call, Throwable t) {
-                Log.i("Test", "onFailure");
-                Toast.makeText(MainActivity.this, "error :(", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<CityResponse>  call, Throwable t) {
+                Log.i("Test", "REQUEST FAILED: " + t.getMessage());
             }
         });
     }
@@ -80,9 +66,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void create_listview(){
-        City city1 = new City("Paris", 21);
-        City city2 = new City("Lisbon", 24);
+  /*  private void create_listview(){
+        CityResponse city1 = new CityResponse("Paris", 21);
+        CityResponse city2 = new CityResponse("Lisbon", 24);
 
         cities = new ArrayList<>();
         cities.add(city1);
@@ -91,5 +77,5 @@ public class MainActivity extends AppCompatActivity {
         ListAdapter city_list_adapter = new ListCityAdapter(this, cities);
         city_list = findViewById(R.id.city_list);
         city_list.setAdapter(city_list_adapter);
-    }
+    }*/
 }
